@@ -31,12 +31,12 @@ contract NFTMarketplace is ERC721URIStorage {
     );
 
     /// @notice Mint a new NFT
-    function mintNFT(string memory tokenURI, uint256 price) public payable returns (uint256) {
+    function mintNFT(string memory uri, uint256 price) public payable returns (uint256) {
         _nftsAll++;
         uint256 id = _nftsAll;
 
         _mint(msg.sender, id);
-        _setTokenURI(id, tokenURI);
+        _setTokenURI(id, uri);
         listNFT(id, price);
 
         return id;
@@ -76,5 +76,19 @@ contract NFTMarketplace is ERC721URIStorage {
 
         _transfer(address(this), msg.sender, id);
         payable(owner).transfer(msg.value);
+    }
+
+    function fetchAllNFTs() public view returns (NFT[] memory) {
+        uint256 index = 0;
+
+        NFT[] memory items = new NFT[](_nftsAll);
+        for(uint256 i = 0; i < _nftsAll; i++) {
+            uint256 id = i + 1;
+            NFT storage currentNFT = idToNFT[id];
+            items[index] = currentNFT;
+            index +=1;
+        }
+
+        return items;
     }
 }
