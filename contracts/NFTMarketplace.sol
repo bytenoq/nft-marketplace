@@ -78,17 +78,18 @@ contract NFTMarketplace is ERC721URIStorage {
         payable(owner).transfer(msg.value);
     }
 
+    /// @notice Fetch all NFTs of the contract
     function fetchAllNFTs() public view returns (NFT[] memory) {
         uint256 index = 0;
 
-        NFT[] memory items = new NFT[](_nftsAll);
+        NFT[] memory nfts = new NFT[](_nftsAll);
         for(uint256 i = 0; i < _nftsAll; i++) {
             uint256 id = i + 1;
             NFT storage currentNFT = idToNFT[id];
-            items[index] = currentNFT;
+            nfts[index] = currentNFT;
             index +=1;
         }
 
-        return items;
+        return nfts;
     }
 }
