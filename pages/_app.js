@@ -16,9 +16,6 @@ function MyApp({ Component, pageProps }) {
                 <a class="nav-link" href="/mint">Mint</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/sell">Sell</a>
-              </li>
-              <li class="nav-item">
                 <div class="d-grid gap-2 col-6 mx-auto">
                   <button class="btn btn-primary" type="button">Profile</button>
                 </div>
