@@ -5,13 +5,13 @@ describe("NFTMarketplace", function () {
     const nftmarketplace = await NFTMarketplace.deploy()
     await nftmarketplace.deployed()
 
-    await nftmarketplace.mintNFT(/*url, price*/)
-    await nftmarketplace.mintNFT(/*url, price*/)
+    // await nftmarketplace.mintNFT("https://img.seadn.io/files/9a317c060230fee1d19059f3380cae88.png", 2)
+    // await nftmarketplace.mintNFT("https://img.seadn.io/files/30b75129421c0eceda8830dd0997c104.png", 5)
 
     const [_, user1, user2] = await hre.ethers.getSigners()
 
     // await network.provider.send("hardhat_setBalance", [
-    //   "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+    //   "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
     //   "0xc6c0c100fa8c00",
     // ]);
 
