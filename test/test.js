@@ -27,10 +27,10 @@ describe("NFTMarketplace", function () {
     allNFTs = await Promise.all(allNFTs.map(async i => {
       const uri = await nftmarketplace.tokenURI(i.id)
       let nft = {
-        uri,
         id: i.id.toString(),
         owner: i.owner,
-        price: i.price.toString()
+        price: i.price.toString(),
+        uri
       }
       return nft
     }))

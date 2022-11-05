@@ -11,7 +11,8 @@
   "dependencies": {
     "@openzeppelin/contracts": "^4.7.3",
     "bootstrap": "^5.2.2",
-    "dotenv": "^16.0.1",
+    "dotenv": "^16.0.3",
+    "ethers": "^5.7.2",
     "hardhat": "^2.11.1",
     "ipfs-http-client": "^58.0.1",
     "next": "12.2.2",
