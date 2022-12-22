@@ -5,7 +5,7 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 
 /// @title NFT Marketplace
 /// @author Giorgos Kriaras
-/// @notice Mint, list & buy NFTs
+/// @notice Mint, buy & list NFTs
 contract NFTMarketplace is ERC721URIStorage {
     uint256 private _nftsAll;
     address public owner;
@@ -42,6 +42,21 @@ contract NFTMarketplace is ERC721URIStorage {
         return id;
     }
 
+    /// @notice Buy an NFT from the marketplace
+    function buyNFT(uint256 id) public payable {
+        owner = idToNFT[id].owner;
+        bool sold = idToNFT[id].sold;
+
+        require(id > 0 && id <= _nftsAll, "NFT must exist");
+        require(sold == false, "NFT must be for sale");
+
+        idToNFT[id].owner = payable(msg.sender);
+        idToNFT[id].sold = true;
+
+        _transfer(address(this), msg.sender, id);
+        payable(owner).transfer(msg.value);
+    }
+
     /// @notice List an NFT on the marketplace
     function listNFT(uint256 id, uint256 price) public payable {
         require(price > 0, "Price must be greater than 0");
@@ -61,21 +76,6 @@ contract NFTMarketplace is ERC721URIStorage {
             price,
             false
         );
-    }
-
-    /// @notice Buy an NFT from the marketplace
-    function buyNFT(uint256 id) public payable {
-        owner = idToNFT[id].owner;
-        bool sold = idToNFT[id].sold;
-
-        require(id > 0 && id <= _nftsAll, "NFT must exist");
-        require(sold == false, "NFT must be for sale");
-
-        idToNFT[id].owner = payable(msg.sender);
-        idToNFT[id].sold = true;
-
-        _transfer(address(this), msg.sender, id);
-        payable(owner).transfer(msg.value);
     }
 
     /// @notice Fetch all NFTs of the contract
