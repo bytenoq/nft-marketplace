@@ -67,57 +67,67 @@ export default function Mint() {
     const ethPrice = ethers.utils.parseUnits(price, 'ether')
     let transaction = await contract.mintNFT(uri, ethPrice)
     await transaction.wait()
-    router.push('/')
+    router.push('/buy')
   }
 
   return (
-    <div class="d-flex justify-content-center text-center">
-      <div class="form-group col-md-4">
-        <br></br>
-        <input 
-          placeholder="Name"
-          class="form-control"
-          required
-          onChange={e => setName(e.target.value)}
-        />
-        <br></br>
-        <textarea
-          placeholder="Description"
-          class="form-control"
-          required
-          onChange={e => setDescription(e.target.value)}
-        />
-        <br></br>
-        <div class="form-group row">
-          <label class="col-sm-2 col-form-label">ETH</label>
-          <div class="col-sm-10">
-            <input
-              placeholder="Price"
-              class="form-control"
-              type="number"
-              min="0"
-              required
-              onChange={e => setPrice(e.target.value)}
-            />
+    <section class="vh-100 pt-2 pb-2">
+      <div class="container col-md-5">
+        <div class="row pt-5">
+          <div class="col-12">
+            <h3 class="border-bottom mb-2">Mint a new NFT</h3>
           </div>
         </div>
-        <br></br>
-        <input
-          type="file"
-          name="File"
-          class="form-control"
-          onChange={imageToIPFS}
-        />
-        <br></br>
-        <button onClick={mint} class="btn btn-primary">
-          Mint NFT
-        </button>
-        <p></p>
-        <img
-          class="form-control-file"
-          src={file}
-        />
+        <div class="text-center">
+          <div class="form-group">
+            <br></br>
+            <input 
+              placeholder="Name"
+              class="form-control"
+              required
+              onChange={e => setName(e.target.value)}
+            />
+            <br></br>
+            <textarea
+              placeholder="Description"
+              class="form-control"
+              required
+              onChange={e => setDescription(e.target.value)}
+            />
+            <br></br>
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label">ETH</label>
+              <div class="col-sm-10">
+                <input
+                  placeholder="Price"
+                  class="form-control"
+                  type="number"
+                  min="0"
+                  required
+                  onChange={e => setPrice(e.target.value)}
+                />
+              </div>
+            </div>
+            <br></br>
+            <input
+              type="file"
+              name="File"
+              class="form-control"
+              onChange={imageToIPFS}
+            />
+            <br></br>
+            <button onClick={mint} class="btn btn-primary">
+              Mint NFT
+            </button>
+            <p></p>
+            <img
+              class="form-control-file img-thumbnail"
+              src={file}
+            />
+          </div>
+          <p></p>
+        </div>
       </div>
-    </div>
+    </section>
   )
 }

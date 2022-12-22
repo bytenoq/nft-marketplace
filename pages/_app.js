@@ -4,9 +4,12 @@ import 'bootstrap/dist/css/bootstrap.css'
 function MyApp({ Component, pageProps }) {
   return (
     <div>
-      <nav class="navbar navbar-expand-lg bg-light">
+      <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-black">
         <div class="container-fluid">
-          <a class="navbar-brand" href="/">AegeanSea</a>
+          <a class="navbar-brand" href="/">
+            <img src="logo.png" width="24" height="24" class="d-inline-block align-text-top" />
+            AegeanSea
+          </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -16,9 +19,7 @@ function MyApp({ Component, pageProps }) {
                 <a class="nav-link" href="/mint">Mint</a>
               </li>
               <li class="nav-item">
-                <div class="d-grid gap-2 col-6 mx-auto">
-                  <button class="btn btn-primary" type="button">Profile</button>
-                </div>
+                <a class="nav-link" href="/buy">Buy</a>
               </li>
             </ul>
           </div>
