@@ -22,7 +22,6 @@ const client = create({
 export default function Mint() {
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
-  const [price, setPrice] = useState('')
   const [file, setFile] = useState(null)
   const router = useRouter()
 
@@ -41,7 +40,7 @@ export default function Mint() {
   }
 
   async function uriToIPFS() {
-    if (!name || !description || !price || !file) return
+    if (!name || !description || !file) return
     const metadata = JSON.stringify({
       name, description, image: file
     })
@@ -59,10 +58,9 @@ export default function Mint() {
     const provider = new ethers.providers.Web3Provider(window.ethereum, "any")
     const signer = provider.getSigner()
     let contract = new ethers.Contract(NFTMarketplaceAddress, NFTMarketplace.abi, signer)
-    const ethPrice = ethers.utils.parseUnits(price, 'ether')
-    let transaction = await contract.mintNFT(uri, ethPrice)
+    let transaction = await contract.mintNFT(uri)
     await transaction.wait()
-    router.push('/buy')
+    router.push('/list')
   }
 
   return (
@@ -70,7 +68,7 @@ export default function Mint() {
       <div class="container col-md-5">
         <div class="row pt-5">
           <div class="col-12">
-            <h3 class="border-bottom mb-2">Mint a new NFT</h3>
+            <h3 class="border-bottom mb-2">Mint an NFT on the marketplace</h3>
           </div>
         </div>
         <div class="text-center">
@@ -90,20 +88,6 @@ export default function Mint() {
               onChange={e => setDescription(e.target.value)}
             />
             <br></br>
-            <div class="form-group row">
-              <label class="col-sm-2 col-form-label">ETH</label>
-              <div class="col-sm-10">
-                <input
-                  placeholder="Price"
-                  class="form-control"
-                  type="number"
-                  min="0"
-                  required
-                  onChange={e => setPrice(e.target.value)}
-                />
-              </div>
-            </div>
-            <br></br>
             <input
               type="file"
               name="File"
@@ -111,14 +95,14 @@ export default function Mint() {
               onChange={imageToIPFS}
             />
             <br></br>
-            <button onClick={mint} class="btn btn-primary">
-              Mint NFT
-            </button>
-            <p></p>
             <img
               class="form-control-file img-thumbnail"
               src={file}
             />
+            <p></p>
+            <button onClick={mint} class="btn btn-primary">
+              Mint NFT
+            </button>
           </div>
           <p></p>
         </div>

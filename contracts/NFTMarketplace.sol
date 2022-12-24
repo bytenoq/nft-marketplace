@@ -30,14 +30,20 @@ contract NFTMarketplace is ERC721URIStorage {
         bool sold
     );
 
-    /// @notice Mint a new NFT
-    function mintNFT(string memory uri, uint256 price) public payable returns (uint256) {
+    /// @notice Mint an NFT on the marketplace
+    function mintNFT(string memory uri) public payable returns (uint256) {
         _nftsAll++;
         uint256 id = _nftsAll;
 
         _mint(msg.sender, id);
         _setTokenURI(id, uri);
-        listNFT(id, price);
+
+        idToNFT[id] = NFT (
+            id,
+            payable(msg.sender),
+            0,
+            true
+        );
 
         return id;
     }

@@ -1,12 +1,12 @@
 describe("NFTMarketplace", function () {
 
-  it("Should mint, list & buy NFTs", async function () {
+  it("Should mint, buy & list NFTs", async function () {
     const NFTMarketplace = await ethers.getContractFactory("NFTMarketplace")
     const nftmarketplace = await NFTMarketplace.deploy()
     await nftmarketplace.deployed()
 
-    // await nftmarketplace.mintNFT("https://img.seadn.io/files/9a317c060230fee1d19059f3380cae88.png", 2)
-    // await nftmarketplace.mintNFT("https://img.seadn.io/files/30b75129421c0eceda8830dd0997c104.png", 5)
+    // await nftmarketplace.mintNFT("https://img.seadn.io/files/9a317c060230fee1d19059f3380cae88.png")
+    // await nftmarketplace.mintNFT("https://img.seadn.io/files/30b75129421c0eceda8830dd0997c104.png")
 
     const [_, user1, user2] = await hre.ethers.getSigners()
 
