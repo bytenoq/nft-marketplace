@@ -23,7 +23,7 @@ contract NFTMarketplace is ERC721URIStorage {
 
     mapping(uint256 => NFT) private idToNFT;
 
-    event nftListed (
+    event nftTransfer (
         uint256 indexed id,
         address owner,
         uint256 price,
@@ -70,7 +70,7 @@ contract NFTMarketplace is ERC721URIStorage {
 
         _transfer(msg.sender, address(this), id);
 
-        emit nftListed (
+        emit nftTransfer (
             id,
             msg.sender,
             price,
@@ -116,19 +116,19 @@ contract NFTMarketplace is ERC721URIStorage {
         return nfts;
     }
 
-    /// @notice Fetch my NFTs of the contract
-    function fetchMyNFTs() public view returns (NFT[] memory) {
+    /// @notice Fetch sold NFTs of the contract
+    function fetchSoldNFTs() public view returns (NFT[] memory) {
         uint256 index = 0;
-        uint256 nftsMine = 0;
+        uint256 nftsSold = 0;
 
         for(uint256 i = 0; i< _nftsAll; i++) {
-            if(idToNFT[i+1].owner == msg.sender)
-                nftsMine++;
+            if(idToNFT[i+1].sold == true)
+                nftsSold++;
         }
 
-        NFT[] memory nfts = new NFT[](nftsMine);
+        NFT[] memory nfts = new NFT[](nftsSold);
         for(uint256 i = 0; i < _nftsAll; i++) {
-            if(idToNFT[i+1].owner == msg.sender) {
+            if(idToNFT[i+1].sold == true) {
                 uint256 id = i + 1;
                 NFT storage currentNFT = idToNFT[id];
                 nfts[index] = currentNFT;

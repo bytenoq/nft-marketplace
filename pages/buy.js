@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { ethers } from 'ethers'
-import Web3Modal from 'web3modal'
+import { useRouter } from 'next/router'
 import axios from 'axios'
 import NFTMarketplace from '../artifacts/contracts/NFTMarketplace.sol/NFTMarketplace.json'
 import { NFTMarketplaceAddress } from '../config'
@@ -8,6 +8,7 @@ import { NFTMarketplaceAddress } from '../config'
 export default function Buy() {
   const [loading, setLoading] = useState(['loading'])
   const [nfts, setNFTs] = useState(['not-loaded'])
+  const router = useRouter()
 
   useEffect(() => {
     loadNFTs()
@@ -39,9 +40,7 @@ export default function Buy() {
   }
 
   async function buyNFT(nft) {
-    const web3Modal = new Web3Modal()
-    const connection = await web3Modal.connect()
-    const provider = new ethers.providers.Web3Provider(connection)
+    const provider = new ethers.providers.Web3Provider(window.ethereum, "any")
     const signer = provider.getSigner()
     const contract = new ethers.Contract(NFTMarketplaceAddress, NFTMarketplace.abi, signer)
 
@@ -51,7 +50,7 @@ export default function Buy() {
     })
 
     await transaction.wait()
-    loadNFTs()
+    router.push('/list')
   }
 
   if (loading === 'loaded' && !nfts.length) return (
@@ -81,7 +80,7 @@ export default function Buy() {
                 <div class="card-body d-flex flex-column bg-light rounded-bottom">
                   <h5 class="card-title">{nft.name}</h5>
                   <p class="card-text">{nft.description}</p>
-                  <p class="card-text">{nft.price} ETH</p>
+                  <h6 class="card-text">{nft.price} ETH</h6>
                   <div>
                     <button className="mt-auto btn input-block-level form-control btn-primary" onClick={() => buyNFT(nft)}>Buy NFT</button>
                   </div>
