@@ -1,7 +1,6 @@
 import { create } from 'ipfs-http-client'
 import { useState } from 'react'
 import { ethers } from 'ethers'
-import Web3Modal from 'web3modal'
 import { useRouter } from 'next/router'
 import NFTMarketplace from '../artifacts/contracts/NFTMarketplace.sol/NFTMarketplace.json'
 import { NFTMarketplaceAddress } from '../config'
@@ -9,8 +8,6 @@ import { NFTMarketplaceAddress } from '../config'
 const IPFS_PROJECT_ID = process.env.IPFS_PROJECT_ID
 const IPFS_API_KEY_SECRET = process.env.IPFS_API_KEY_SECRET
 
-console.log(IPFS_PROJECT_ID)
-console.log(IPFS_API_KEY_SECRET)
 const auth = `${IPFS_PROJECT_ID}:${IPFS_API_KEY_SECRET}`
 
 const client = create({
@@ -27,7 +24,7 @@ export default function Mint() {
   const [description, setDescription] = useState('')
   const [price, setPrice] = useState('')
   const [file, setFile] = useState(null)
-  const router = useRouter()  
+  const router = useRouter()
 
   async function imageToIPFS(e) {
     const file = e.target.files[0]
@@ -59,9 +56,7 @@ export default function Mint() {
 
   async function mint() {
     const uri = await uriToIPFS()
-    const web3Modal = new Web3Modal()
-    const connection = await web3Modal.connect()
-    const provider = new ethers.providers.Web3Provider(connection)
+    const provider = new ethers.providers.Web3Provider(window.ethereum, "any")
     const signer = provider.getSigner()
     let contract = new ethers.Contract(NFTMarketplaceAddress, NFTMarketplace.abi, signer)
     const ethPrice = ethers.utils.parseUnits(price, 'ether')
