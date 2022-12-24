@@ -5,10 +5,8 @@ import { useRouter } from 'next/router'
 import NFTMarketplace from '../artifacts/contracts/NFTMarketplace.sol/NFTMarketplace.json'
 import { NFTMarketplaceAddress } from '../config'
 
-// const IPFS_PROJECT_ID = process.env.IPFS_PROJECT_ID
-// const IPFS_API_KEY_SECRET = process.env.IPFS_API_KEY_SECRET
-const IPFS_PROJECT_ID = "2G7jJlmuGfelGKa7rluXGNrly4V"
-const IPFS_API_KEY_SECRET = "f3c36a39b8a6435d31d99063e4667016"
+const IPFS_PROJECT_ID = process.env.IPFS_PROJECT_ID
+const IPFS_API_KEY_SECRET = process.env.IPFS_API_KEY_SECRET
 
 const auth = `${IPFS_PROJECT_ID}:${IPFS_API_KEY_SECRET}`
 
