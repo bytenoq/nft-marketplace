@@ -1,3 +1,4 @@
+import { Menu } from "@/components/menu";
 import type { Metadata } from "next";
 import "./globals.css";
 
@@ -12,7 +13,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        <div className="md:block">
+          <Menu />
+          <div className="border-t">
+            <div className="bg-background">
+              <div className="grid lg:grid-cols-5"></div>
+            </div>
+          </div>
+        </div>
+        {children}
+      </body>
     </html>
   );
 }
