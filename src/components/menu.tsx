@@ -1,9 +1,9 @@
 "use client";
 
 import { Menubar, MenubarMenu, MenubarTrigger } from "@/components/ui/menubar";
+import { menuItems } from "@/data/menuItems";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { menuItems } from "./data/menuItems";
 
 export function Menu() {
   const pathname = usePathname();
