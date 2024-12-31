@@ -1,17 +1,26 @@
+"use client";
+
 import { Menubar, MenubarMenu, MenubarTrigger } from "@/components/ui/menubar";
-import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { menuItems } from "./data/menuItems";
 
 export function Menu() {
+  const pathname = usePathname();
+
   return (
     <Menubar className="rounded-none border-b border-none px-2 lg:px-4">
-      <MenubarMenu>
-        <Link href="/" passHref>
-          <MenubarTrigger className="font-bold">
-            <Image src="/favicon.ico" alt="Home" width={20} height={20} />
-          </MenubarTrigger>
-        </Link>
-      </MenubarMenu>
+      {menuItems.map((item, index) => (
+        <MenubarMenu key={index}>
+          <Link href={item.href} key={item.href}>
+            <MenubarTrigger
+              data-active={pathname?.startsWith(item.href) ?? false}
+            >
+              {item.name}
+            </MenubarTrigger>
+          </Link>
+        </MenubarMenu>
+      ))}
     </Menubar>
   );
 }
