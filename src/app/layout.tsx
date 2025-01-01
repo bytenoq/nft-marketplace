@@ -1,16 +1,25 @@
 import { Menu } from "@/components/menu";
 import type { Metadata } from "next";
+import { headers } from "next/headers";
+import { cookieToInitialState } from "wagmi";
+import { getConfig } from "./config";
 import "./globals.css";
+import { Providers } from "./providers";
 
 export const metadata: Metadata = {
   title: "AegeanSea",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const initialState = cookieToInitialState(
+    getConfig(),
+    (await headers()).get("cookie")
+  );
+
   return (
     <html lang="en">
       <body className="antialiased">
@@ -22,7 +31,7 @@ export default function RootLayout({
             </div>
           </div>
         </div>
-        {children}
+        <Providers initialState={initialState}>{children}</Providers>
       </body>
     </html>
   );
