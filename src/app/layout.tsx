@@ -1,10 +1,11 @@
+import { ConnectWallet } from "@/components/connect-wallet";
 import { Menu } from "@/components/menu";
+import { Providers } from "@/components/providers";
 import type { Metadata } from "next";
 import { headers } from "next/headers";
 import { cookieToInitialState } from "wagmi";
 import { getConfig } from "./config";
 import "./globals.css";
-import { Providers } from "./providers";
 
 export const metadata: Metadata = {
   title: "AegeanSea",
@@ -24,14 +25,19 @@ export default async function RootLayout({
     <html lang="en">
       <body className="antialiased">
         <div className="md:block">
-          <Menu />
+          <div className="flex justify-between items-center px-2 lg:px-4 text-sm">
+            <Menu />
+            <Providers initialState={initialState}>
+              <ConnectWallet />
+            </Providers>
+          </div>
           <div className="border-t">
             <div className="bg-background">
               <div className="grid lg:grid-cols-5"></div>
             </div>
           </div>
         </div>
-        <Providers initialState={initialState}>{children}</Providers>
+        {children}
       </body>
     </html>
   );

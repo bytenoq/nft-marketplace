@@ -9,7 +9,7 @@ export function Menu() {
   const pathname = usePathname();
 
   return (
-    <Menubar className="rounded-none border-b border-none px-2 lg:px-4">
+    <Menubar className="rounded-none border-none">
       {menuItems.map((item, index) => (
         <MenubarMenu key={index}>
           <Link href={item.href} key={item.href}>
