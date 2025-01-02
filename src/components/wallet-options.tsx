@@ -31,7 +31,7 @@ function WalletOption({
   }, [connector]);
 
   return (
-    <Button disabled={!ready} onClick={onClick}>
+    <Button variant="secondary" size="sm" disabled={!ready} onClick={onClick}>
       Connect
     </Button>
   );

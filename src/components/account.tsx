@@ -8,7 +8,17 @@ export function Account() {
 
   return (
     <div>
-      {address && <div>{ensName ? `${ensName} (${address})` : address}</div>}
+      {address && (
+        <div>
+          <a
+            href={`https://etherscan.io/address/${address}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {ensName ? `${ensName} (${address})` : address}
+          </a>
+        </div>
+      )}
     </div>
   );
 }
